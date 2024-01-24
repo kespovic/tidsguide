@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="no">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tidsguide for Pizzadeig</title>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Lato', sans-serif;
+            text-align: center;
+            margin: 0; /* Fjernet ekstra margin for å unngå hvite kanter */
+            background-color: #001f3f; /* Mørkeblå bakgrunnsfarge for body */
+            color: #fff; /* Hvit tekstfarge for bedre lesbarhet */
+            /* overflow: hidden; Fjernet overflow-stilen */
+        }
+
+        #calculator {
+            width: 60%;
+            margin: 20px auto; /* La igjen litt margin for å sentrere innholdet */
+            background-color: #fff; /* Hvit bakgrunnsfarge for #calculator */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #001f3f; /* Mørkeblå farge for overskriften */
+        }
+
+        p {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        input {
+            width: calc(50% - 12px);
+            margin-bottom: 10px;
+            padding: 10px;
+            box-sizing: border-box;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            padding: 15px;
+            box-sizing: border-box;
+            margin-top: 20px;
+            cursor: pointer;
+            background-color: #001f3f; /* Mørkeblå farge for knappen */
+            color: #fff; /* Hvit tekstfarge for knappen */
+            border: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #333;
+        }
+
+        #schedule {
+            text-align: left;
+            margin-top: 20px;
+        }
+
+        #schedule table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        #schedule th, #schedule td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+        }
+
+        #schedule th {
+            background-color: #001f3f; /* Mørkeblå farge for overskriften, samme som knappen */
+            color: #fff; /* Hvit tekstfarge for overskriften */
+        }
+
+        #inputTable {
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        #inputTable th, #inputTable td {
+            padding: 5px;
+            text-align: left;
+            font-size: 16px;
+            color: #333;
+            border: none;
+        }
+    </style>
+</head>
+<body style="background-image: url('https://www.kingarthurbaking.com/sites/default/files/styles/featured_image/public/2023-07/Neapolitan-Pizza-0038.jpg?itok=vnYuUxhm'); background-size: cover; background-position: center; background-repeat: no-repeat;">
+
+
+
+<div id="calculator">
+    <h1>Tidsguide for pizzadeig</h1>
+    <p>Velkommen til Tidsguiden for pizzadeig! Fyll inn datoen og klokkeslett du ønsker at deigen skal være klar for utbaking. De andre faktorene er forhåndsutfylt for å vise eksempel, men disse endrer du til din oppskrift. Du skal fylle ut antall timer du bruker på den spesifikke prosessen. Deretter trykker du på beregn tidsskjema, så får du opp en tidstabell som viser når du skal starte de enkelte prosessene. Dersom en prosess har 0 i verdi, så vises den ikke i tidstabellen.</p>
+
+    <table id="inputTable">
+        <tr>
+            <td><label for="pizzaDate">Når ønsker du deigen skal være klar for utbaking?</label></td>
+            <td><input type="date" id="pizzaDate" value="" required></td>
+        </tr>
+        <tr>
+            <td><label for="pizzaTime">Klokkeslett:</label></td>
+            <td><input type="time" id="pizzaTime" value="17:00" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursProductionPoolish">Blande Poolish (antall timer):</label></td>
+            <td><input type="number" id="hoursProductionPoolish" placeholder="Timer" step="0.5" value="0.15" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursPoolishRoomTemp">Poolish i romtemp (antall timer):</label></td>
+            <td><input type="number" id="hoursPoolishRoomTemp" placeholder="Timer" step="0.5" value="20" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursPoolishFridge">Poolish i kjøleskap før elting (antall timer):</label></td>
+            <td><input type="number" id="hoursPoolishFridge" placeholder="Timer" step="0.5" value="2" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursKneading">Elting av deig (antall timer):</label></td>
+            <td><input type="number" id="hoursKneading" placeholder="Timer" step="0.5" value="0.5" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursRest">Hvile (antall timer):</label></td>
+            <td><input type="number" id="hoursRest" placeholder="Timer" step="0.5" value="0.5" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursBulkBeforeCT">Bulk RT før CT (antall timer):</label></td>
+            <td><input type="number" id="hoursBulkBeforeCT" placeholder="Timer" step="0.5" value="2" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursBulkCT">Bulk CT (antall timer):</label></td>
+            <td><input type="number" id="hoursBulkCT" placeholder="Timer" step="0.5" value="34" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursBallCT">Ball CT (antall timer):</label></td>
+            <td><input type="number" id="hoursBallCT" placeholder="Timer" step="0.5" value="0" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursBulkRT">Romtemperering bulk (antall timer):</label></td>
+            <td><input type="number" id="hoursBulkRT" placeholder="Timer" step="0.5" value="2" required></td>
+        </tr>
+        <tr>
+            <td><label for="hoursBallRT">Ball RT (antall timer):</label></td>
+            <td><input type="number" id="hoursBallRT" placeholder="Timer" step="0.5" value="8" required></td>
+        </tr>
+    </table>
+
+    <button onclick="calculateBakingTime()">LAG ET FANTASTISK TIDSSKJEMA</button>
+    <div id="result"></div>
+    <div id="schedule"></div>
+</div>
+
+<script>
+    function calculateBakingTime() {
+        const pizzaDateValue = document.getElementById('pizzaDate').value;
+        const pizzaTimeValue = document.getElementById('pizzaTime').value;
+        const hoursProductionPoolishValue = parseFloat(document.getElementById('hoursProductionPoolish').value);
+        const hoursPoolishRoomTempValue = parseFloat(document.getElementById('hoursPoolishRoomTemp').value);
+        const hoursPoolishFridgeValue = parseFloat(document.getElementById('hoursPoolishFridge').value);
+        const hoursKneadingValue = parseFloat(document.getElementById('hoursKneading').value);
+        const hoursRestValue = parseFloat(document.getElementById('hoursRest').value);
+        const hoursBulkBeforeCTValue = parseFloat(document.getElementById('hoursBulkBeforeCT').value);
+        const hoursBulkCTValue = parseFloat(document.getElementById('hoursBulkCT').value);
+        const hoursBallCTValue = parseFloat(document.getElementById('hoursBallCT').value);
+        const hoursBulkRTValue = parseFloat(document.getElementById('hoursBulkRT').value);
+        const hoursBallRTValue = parseFloat(document.getElementById('hoursBallRT').value);
+
+        if (!pizzaDateValue || !pizzaTimeValue ||
+            isNaN(hoursProductionPoolishValue) || isNaN(hoursPoolishRoomTempValue) || isNaN(hoursPoolishFridgeValue) ||
+            isNaN(hoursKneadingValue) || isNaN(hoursRestValue) || isNaN(hoursBulkBeforeCTValue) ||
+            isNaN(hoursBulkCTValue) || isNaN(hoursBallCTValue) || isNaN(hoursBulkRTValue) || isNaN(hoursBallRTValue)) {
+            alert('Vennligst fyll ut alle feltene korrekt.');
+            return;
+        }
+
+        const bakingDateTime = new Date(`${pizzaDateValue}T${pizzaTimeValue}`);
+        const ballRTStartTime = new Date(bakingDateTime.getTime() - hoursBallRTValue * 60 * 60 * 1000);
+        const bulkRTStartTime = new Date(ballRTStartTime.getTime() - hoursBulkRTValue * 60 * 60 * 1000);
+        const ballCTStartTime = new Date(bulkRTStartTime.getTime() - hoursBallCTValue * 60 * 60 * 1000);
+        const bulkCTStartTime = new Date(ballCTStartTime.getTime() - hoursBulkCTValue * 60 * 60 * 1000);
+        const bulkBeforeCTStartTime = new Date(bulkCTStartTime.getTime() - hoursBulkBeforeCTValue * 60 * 60 * 1000);
+        const restStartTime = new Date(bulkBeforeCTStartTime.getTime() - hoursRestValue * 60 * 60 * 1000);
+        const kneadingStartTime = new Date(restStartTime.getTime() - hoursKneadingValue * 60 * 60 * 1000);
+        const poolishFridgeStartTime = new Date(kneadingStartTime.getTime() - hoursPoolishFridgeValue * 60 * 60 * 1000);
+        const poolishRoomTempStartTime = new Date(poolishFridgeStartTime.getTime() - hoursPoolishRoomTempValue * 60 * 60 * 1000);
+        const productionPoolishStartTime = new Date(poolishRoomTempStartTime.getTime() - hoursProductionPoolishValue * 60 * 60 * 1000);
+
+        const resultElement = document.getElementById('result');
+        resultElement.textContent = `Pizzadeigen skal være klar for utbaking den ${bakingDateTime.toLocaleString()}.`;
+
+        const scheduleElement = document.getElementById('schedule');
+        let scheduleHtml = '<h4>Tidsskjema</h4>';
+
+        scheduleHtml += '<table>';
+        scheduleHtml += '<tr><th>Prosesser</th><th>Timer</th><th>Starttidspunkt</th></tr>';
+
+        if (hoursProductionPoolishValue > 0) {
+            scheduleHtml += `<tr><td>Blande Poolish</td><td>${hoursProductionPoolishValue}</td><td>${formatDateTime(productionPoolishStartTime)}</td></tr>`;
+        }
+
+        if (hoursPoolishRoomTempValue > 0) {
+            scheduleHtml += `<tr><td>Poolish i romtemp</td><td>${hoursPoolishRoomTempValue}</td><td>${formatDateTime(poolishRoomTempStartTime)}</td></tr>`;
+        }
+
+        if (hoursPoolishFridgeValue > 0) {
+            scheduleHtml += `<tr><td>Poolish i kjøleskap før elting</td><td>${hoursPoolishFridgeValue}</td><td>${formatDateTime(poolishFridgeStartTime)}</td></tr>`;
+        }
+
+        if (hoursKneadingValue > 0) {
+            scheduleHtml += `<tr><td>Elting av deig</td><td>${hoursKneadingValue}</td><td>${formatDateTime(kneadingStartTime)}</td></tr>`;
+        }
+
+        if (hoursRestValue > 0) {
+            scheduleHtml += `<tr><td>Hvile</td><td>${hoursRestValue}</td><td>${formatDateTime(restStartTime)}</td></tr>`;
+        }
+
+        if (hoursBulkBeforeCTValue > 0) {
+            scheduleHtml += `<tr><td>Bulk RT før CT</td><td>${hoursBulkBeforeCTValue}</td><td>${formatDateTime(bulkBeforeCTStartTime)}</td></tr>`;
+        }
+
+        if (hoursBulkCTValue > 0) {
+            scheduleHtml += `<tr><td>Bulk CT</td><td>${hoursBulkCTValue}</td><td>${formatDateTime(bulkCTStartTime)}</td></tr>`;
+        }
+
+        if (hoursBallCTValue > 0) {
+            scheduleHtml += `<tr><td>Ball CT</td><td>${hoursBallCTValue}</td><td>${formatDateTime(ballCTStartTime)}</td></tr>`;
+        }
+
+        if (hoursBulkRTValue > 0) {
+            scheduleHtml += `<tr><td>Romtemperering bulk</td><td>${hoursBulkRTValue}</td><td>${formatDateTime(bulkRTStartTime)}</td></tr>`;
+        }
+
+        if (hoursBallRTValue > 0) {
+            scheduleHtml += `<tr><td>Ball RT</td><td>${hoursBallRTValue}</td><td>${formatDateTime(ballRTStartTime)}</td></tr>`;
+        }
+
+
+        // Ny rad for "Deig klar for utbaking"
+        scheduleHtml += `<tr><td>Deig klar for utbaking</td><td>0</td><td>${formatDateTime(bakingDateTime)}</td></tr>`;
+
+        scheduleHtml += '</table>';
+        scheduleElement.innerHTML = scheduleHtml;
+    }
+
+    function formatDateTime(dateTime) {
+        const options = { weekday: 'long', year: 'numeric', month: 'numeric', day: 'numeric', hour: 'numeric', minute: 'numeric', hour12: false };
+        return dateTime.toLocaleString('no-NO', options).replace(', ', ' - ');
+    }
+</script>
+</body>
+</html>
